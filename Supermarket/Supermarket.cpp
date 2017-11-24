@@ -7,12 +7,20 @@
 
 #include "Supermarket.h"
 
-Supermarket::Supermarket() {
-	// TODO Auto-generated constructor stub
 
+Supermarket::Supermarket(State stateParam) {
+	this->state = stateParam;
+	this->stock = new (Stock);
+	this->menu = (new MenuFactory())->getMenu(this->state);
 }
 
 Supermarket::~Supermarket() {
 	// TODO Auto-generated destructor stub
 }
 
+void Supermarket::sell(void) {
+	do {
+		Ticket* ticket = menu->exec(stock);
+		ticket->close();
+	} while (true);
+}
